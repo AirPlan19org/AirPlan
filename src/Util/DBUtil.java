@@ -8,7 +8,7 @@ import org.apache.commons.dbcp.BasicDataSource;
 
 public class DBUtil {
 	static BasicDataSource datasource=null;
-	public static void getDBSource() throws IOException{
+	private static void getDBSource() throws IOException{
 		Properties props=new Properties();
 		props.load(DBUtil.class.getResourceAsStream("/res/db.properties"));
 		String driver=props.getProperty("driverClassName");
