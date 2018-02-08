@@ -13,13 +13,13 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-public class AuthMail {
+public class MailUtil {
 	HashMap<String, String> authMap=new HashMap<String,String>();
 	public void sendMail(String to) throws IOException, MessagingException{
 		String from="18428369524@163.com";
 		String password="520lq1314";
 		Properties props=new Properties();
-		props.load(AuthMail.class.getResourceAsStream("/res/mail.properties"));
+		props.load(MailUtil.class.getResourceAsStream("/res/mail.properties"));
 		Session session=Session.getInstance(props);
 		session.setDebug(true);
 		MimeMessage message=createMail(to, from, session);
@@ -31,9 +31,9 @@ public class AuthMail {
 	private MimeMessage createMail(String to,String from,Session session) throws UnsupportedEncodingException, MessagingException{
 		String authno=authno();
 		MimeMessage message=new MimeMessage(session);
-		message.setFrom(new InternetAddress(from,"·ÉÄÄ¶ùº½¿Õ","utf-8"));
-		message.setRecipient(MimeMessage.RecipientType.TO, new InternetAddress(to, "ÓÃ»§", "utf-8"));
-		message.setSubject("ÓÃ»§ÑéÖ¤","utf-8");
+		message.setFrom(new InternetAddress(from,"é£å“ªå„¿èˆªç©º","utf-8"));
+		message.setRecipient(MimeMessage.RecipientType.TO, new InternetAddress(to, "ç”¨æˆ·", "utf-8"));
+		message.setSubject("ç”¨æˆ·éªŒè¯","utf-8");
 		message.setContent(authno,"utf-8");
 		message.setSentDate(new Date());
 		message.saveChanges();
