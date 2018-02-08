@@ -15,23 +15,23 @@ public class DBUtil {
 		String url=props.getProperty("url");
 		String username=props.getProperty("username");
 		String password=props.getProperty("password");
-		String intialSize=props.getProperty("initialSize");
+		String initialSize=props.getProperty("initialSize");
 		String maxIdle=props.getProperty("maxIdle");
 		String minIdle=props.getProperty("minIdle");
 		String maxActive=props.getProperty("maxActive");
 		String maxWait=props.getProperty("maxWait");
 		datasource=new BasicDataSource();
-		datasource.setDriverClassName("driver");
-		datasource.setUrl("url");
-		datasource.setUsername("username");
-		datasource.setPassword("password");
-		datasource.setInitialSize(Integer.valueOf("initialSize"));
-		datasource.setMaxIdle(Integer.valueOf("maxIdle"));
-		datasource.setMinIdle(Integer.valueOf("maxIdle"));
-		datasource.setMaxActive(Integer.valueOf("maxActive"));
-		datasource.setMaxWait(Integer.valueOf("maxActive"));
+		datasource.setDriverClassName(driver);
+		datasource.setUrl(url);
+		datasource.setUsername(username);
+		datasource.setPassword(password);
+		datasource.setInitialSize(Integer.valueOf(initialSize));
+		datasource.setMaxIdle(Integer.valueOf(maxIdle));
+		datasource.setMinIdle(Integer.valueOf(maxIdle));
+		datasource.setMaxActive(Integer.valueOf(maxActive));
+		datasource.setMaxWait(Integer.valueOf(maxActive));
 	}
-	public Connection getConn() throws IOException, SQLException{
+	public static Connection getConn() throws IOException, SQLException{
 		if(datasource==null){
 			getDBSource();
 		}
