@@ -1,5 +1,7 @@
+<%@page import="Util.FormatUtil"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 
@@ -73,26 +75,34 @@
 
 	<!-- /container -->
 	<div class="container">
-		<form class="form-signin" action="reg.user" method="post">
+		<form class="form-signin" action="/AirPlan/reg.user" method="post">
 			<h2 class="form-signin-heading">用户注册</h2>
 			<label for="text" class="sr-only">真实姓名</label> <input type="text"
 				id="text" class="form-control" name="username" placeholder="真实姓名" required>
 				<label for="text" class="sr-only">身份证号</label> <input type="text"
 				id="text" class="form-control" name="useridno" placeholder="身份证号" required>
+				<label for="inputaddr" class="sr-only">联系地址</label>
+				<input type="address" list='addrlist' id="inputaddr" class="form-control" name="useraddr" placeholder="联系地址" required>
+					<datalist id='addrlist'>
+					<%request.setAttribute("addrlist", FormatUtil.addrlist); %>
+					<c:forEach var='addr' items="${requestScope.addrlist }" varStatus="s" >
+					<option value="${addr.addr }">${addr.addr }</option>
+					</c:forEach>
+					</datalist>
 					<label for="tel" class="sr-only">tel</label> <input type="tel"
 					id="tel" class="form-control" name="userphone" placeholder="电话号码" pattern='1[3578][1-9]{9}' required>
 						<label for="inputEmail" class="sr-only">邮箱地址</label> <input
 						type="email" id="inputEmail" class="form-control"
-						name="usermail" placeholder="邮箱地址" required> <label for="inputPassword"
-							class="sr-only">密码</label> <input type="password"
+						name="usermail" placeholder="邮箱地址" pattern='^(.*@qq.com)$' required> <label for="inputPassword"
+							class="sr-only">密码</label> <input type="text"
 							id="inputPassword" name="userpsw" class="form-control"
 							placeholder="密码" required>
 			<button style="border: 0; margin-top: 30px;"
 				class="btn btn-lg btn-primary btn-block" type="submit">注册</button>
 	</div>
-
+	<p style="color:red" >${requestScope.idnoerror }</p>
+	<p style="color:red" >${requestScope.pswerror }</p>
 	</form>
-
 	</div>
 	<!-- /container -->
 

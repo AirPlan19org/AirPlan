@@ -1,6 +1,8 @@
 package Service;
 
 import java.io.IOException;
+import java.text.ParseException;
+
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -8,6 +10,8 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
+
+import Util.FormatUtil;
 
 /**
  * Servlet Filter implementation class UserFilter
@@ -19,14 +23,12 @@ public class UserFilter implements Filter {
      * Default constructor. 
      */
     public UserFilter() {
-        // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see Filter#destroy()
 	 */
 	public void destroy() {
-		// TODO Auto-generated method stub
 	}
 
 	/**
@@ -36,9 +38,25 @@ public class UserFilter implements Filter {
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html;charset=utf-8");
 		String useridno=request.getParameter("useridno");
-		String userphone=request.getParameter("userphone");
-		String usermail=request.getParameter("usermail");
 		String userpsw=request.getParameter("userpsw");
+		try {
+			int flag=0;
+			if(!FormatUtil.checkidno(useridno)){
+				flag=1;
+				request.setAttribute("idnoerror", "身份证号不合法");
+			}
+			if(!FormatUtil.checkpsw(userpsw)){
+				flag=1;
+				request.setAttribute("pswerror", "密码格式不合法");
+			}
+			if(flag==1){
+				request.getRequestDispatcher("/HKProject/reg.jsp").forward(request, response);
+				return;
+			}
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		chain.doFilter(request, response);
 	}
 
 	/**

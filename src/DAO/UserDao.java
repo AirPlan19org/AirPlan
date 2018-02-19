@@ -11,9 +11,10 @@ import Util.DBUtil;
 
 public class UserDao {
 	public static void addUser(User user){
+		System.out.println("正在添加用户");
 		Connection conn=null;
 		PreparedStatement pstm=null;
-		String sql="insert into user values(default,?,?,?,?,?,?,default,default);";
+		String sql="insert into user values(default,?,?,?,?,?,?,0,default);";
 		try {
 			conn=DBUtil.getConn();
 			pstm=conn.prepareStatement(sql);
