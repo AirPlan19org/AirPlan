@@ -102,6 +102,7 @@
 	</div>
 	<p style="color:red" >${requestScope.idnoerror }</p>
 	<p style="color:red" >${requestScope.pswerror }</p>
+	<p style="color:red" >${requestScope.exsistuser }</p>
 	</form>
 	</div>
 	<!-- /container -->

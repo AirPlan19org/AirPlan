@@ -11,6 +11,8 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 
+import DAO.UserDao;
+import DoMain.User;
 import Util.FormatUtil;
 
 /**
@@ -41,6 +43,13 @@ public class UserFilter implements Filter {
 		String userpsw=request.getParameter("userpsw");
 		try {
 			int flag=0;
+			User user=new User();
+			user.setUseridno(useridno);
+			if(UserDao.checkUser(user)!=null){
+				request.setAttribute("exsistuser", "存在该用户");
+				request.getRequestDispatcher("/HKProject/reg.jsp").forward(request, response);
+				return;
+			}
 			if(!FormatUtil.checkidno(useridno)){
 				flag=1;
 				request.setAttribute("idnoerror", "身份证号不合法");

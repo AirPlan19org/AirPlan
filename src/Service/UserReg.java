@@ -2,18 +2,38 @@ package Service;
 
 import java.io.IOException;
 
+import javax.mail.MessagingException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import DAO.UserDao;
 import DoMain.User;
+import Util.MailUtil;
 
 public class UserReg extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		
+		req.setCharacterEncoding("text/html;charset=utf-8");
+		resp.setContentType("utf-8");
+		String to=req.getParameter("usermail");
+		String uri=req.getRequestURI();
+		String directive=uri.substring(uri.lastIndexOf("/")+1,uri.lastIndexOf("."));
+		switch(directive){
+		case "authMail":
+			try {
+				MailUtil.sendMail(to);
+			} catch (MessagingException e) {
+				req.setAttribute("sendmailerror", "邮件发送失败");
+				req.getRequestDispatcher("/HKProject/mailAuth.jsp");
+				return;
+			}
+			break;
+		case "active":
+			
+		}
 	}
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -23,14 +43,10 @@ public class UserReg extends HttpServlet {
 		String usermail=req.getParameter("usermail");
 		String userpsw=req.getParameter("userpsw");
 		String useraddr=req.getParameter("useraddr");
-		User user=new User();
-		user.setUsername(username);
-		user.setUseridno(useridno);
-		user.setUsermail(usermail);
-		user.setUserphone(userphone);
-		user.setUserpsw(userpsw);
-		user.setUseraddr(useraddr);
+		User user=new User(null, username, useridno, userphone, useraddr, usermail, userpsw, "0", "0.00");
 		UserDao.addUser(user);
-		resp.sendRedirect("/Airplan/HKProject/index.html");
+		HttpSession s=req.getSession();
+		s.setAttribute("user", user);
+		req.getRequestDispatcher("").forward(req, resp);
 	}
 }

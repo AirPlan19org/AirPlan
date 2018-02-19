@@ -14,8 +14,8 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 public class MailUtil {
-	HashMap<String, String> authMap=new HashMap<String,String>();
-	public void sendMail(String to) throws IOException, MessagingException{
+	public static HashMap<String, String> authMap=new HashMap<String,String>();
+	public static void sendMail(String to) throws IOException, MessagingException{
 		String from="18428369524@163.com";
 		String password="520lq1314";
 		Properties props=new Properties();
@@ -28,8 +28,9 @@ public class MailUtil {
 		transport.sendMessage(message, message.getAllRecipients());
 		transport.close();
 	}
-	private MimeMessage createMail(String to,String from,Session session) throws UnsupportedEncodingException, MessagingException{
+	private static MimeMessage createMail(String to,String from,Session session) throws UnsupportedEncodingException, MessagingException{
 		String authno=authno();
+		authMap.put(to, authno);
 		MimeMessage message=new MimeMessage(session);
 		message.setFrom(new InternetAddress(from,"飞哪儿航空","utf-8"));
 		message.setRecipient(MimeMessage.RecipientType.TO, new InternetAddress(to, "用户", "utf-8"));
@@ -39,7 +40,7 @@ public class MailUtil {
 		message.saveChanges();
 		return message;
 	}
-	private String authno(){
+	private static String authno(){
 		String authno="";
 		Random r=new Random();
 		for(int i=0;i<4;i++){

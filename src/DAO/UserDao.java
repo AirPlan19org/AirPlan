@@ -38,18 +38,24 @@ public class UserDao {
 		try {
 			conn=DBUtil.getConn();
 			String sql = null;
+			if(user.getUserpsw()==null){
+				sql="select * from user where useridno=?;";
+				pstm=conn.prepareStatement(sql);
+				pstm.setString(1, user.getUseridno());
+			}
 			if(user.getUsermail()!=null){
 				sql="select * from user where usermail=? and userpsw=?;";
 				pstm=conn.prepareStatement(sql);
 				pstm.setString(1, user.getUsermail());
+				pstm.setString(2, user.getUserpsw());
 			}else if(user.getUseridno()!=null){
 				sql="select * from user where useridno=? and userpsw=?;";
 				pstm=conn.prepareStatement(sql);
 				pstm.setString(1, user.getUseridno());
+				pstm.setString(2, user.getUserpsw());
 			}else{
 				return null;
 				}
-			pstm.setString(2, user.getUserpsw());
 			if(rs.next()){
 				return new User(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9));
 			}
@@ -93,10 +99,10 @@ public class UserDao {
 		PreparedStatement pstm=null;
 		try {
 			conn=DBUtil.getConn();
-			String sql="update user set userstatus=? where userid=?;";
+			String sql="update user set userstatus=? where useridno=?;";
 			pstm=conn.prepareStatement(sql);
 			pstm.setString(1, user.getUserstatus());
-			pstm.setString(2, user.getUserid());
+			pstm.setString(2, user.getUseridno());
 			pstm.executeUpdate();
 		} catch (IOException | SQLException e) {
 			e.printStackTrace();
