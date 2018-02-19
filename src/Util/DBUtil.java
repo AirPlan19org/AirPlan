@@ -7,7 +7,7 @@ import java.util.Properties;
 import org.apache.commons.dbcp.BasicDataSource;
 
 public class DBUtil {
-	static BasicDataSource datasource=null;
+	private static BasicDataSource datasource=null;
 	private static void getDBSource() throws IOException{
 		Properties props=new Properties();
 		props.load(DBUtil.class.getResourceAsStream("/res/db.properties"));
