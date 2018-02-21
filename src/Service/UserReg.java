@@ -16,13 +16,14 @@ import Util.MailUtil;
 public class UserReg extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		req.setCharacterEncoding("text/html;charset=utf-8");
-		resp.setContentType("utf-8");
+		req.setCharacterEncoding("utf-8");
+		resp.setContentType("text/html;charset=utf-8");
 		String to=req.getParameter("usermail");
+		User user=null;
 		String uri=req.getRequestURI();
 		String directive=uri.substring(uri.lastIndexOf("/")+1,uri.lastIndexOf("."));
 		switch(directive){
-		case "authMail":
+		case "mailauth":
 			try {
 				MailUtil.sendMail(to);
 			} catch (MessagingException e) {
@@ -32,7 +33,22 @@ public class UserReg extends HttpServlet {
 			}
 			break;
 		case "active":
-			
+			String authno=req.getParameter("authno");
+			if(authno!=null&&MailUtil.authMap.containsValue(authno)){
+				MailUtil.authMap.remove(to);
+				user=new User();
+				user.setUsermail(to);
+				user.setUserstatus("1");
+				UserDao.adminUser(user);
+				resp.sendRedirect("/AirPlan/HKProject/index.html");
+				return;
+			}else{
+				req.setAttribute("authnoerror", "验证码错误");
+				req.getRequestDispatcher("/HKProject/mailAuth.jsp").forward(req, resp);
+				return;
+			}
+		case "modify":
+			user=new User();
 		}
 	}
 	@Override
@@ -46,7 +62,15 @@ public class UserReg extends HttpServlet {
 		User user=new User(null, username, useridno, userphone, useraddr, usermail, userpsw, "0", "0.00");
 		UserDao.addUser(user);
 		HttpSession s=req.getSession();
-		s.setAttribute("user", user);
-		req.getRequestDispatcher("").forward(req, resp);
+		s.setAttribute("usermail", usermail);
+		req.getRequestDispatcher("/HKProject/mailAuth.jsp").forward(req, resp);
+		try {
+			System.out.println(usermail);
+			MailUtil.sendMail(usermail);
+		} catch (MessagingException e) {
+			req.setAttribute("sendmailerror", "邮件发送失败");
+			req.getRequestDispatcher("/HKProject/mailAuth.jsp");
+		}
+		return;
 	}
 }

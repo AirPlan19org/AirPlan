@@ -16,6 +16,7 @@ import javax.mail.internet.MimeMessage;
 public class MailUtil {
 	public static HashMap<String, String> authMap=new HashMap<String,String>();
 	public static void sendMail(String to) throws IOException, MessagingException{
+		System.out.println("建立链接中");
 		String from="18428369524@163.com";
 		String password="520lq1314";
 		Properties props=new Properties();
@@ -32,10 +33,11 @@ public class MailUtil {
 		String authno=authno();
 		authMap.put(to, authno);
 		MimeMessage message=new MimeMessage(session);
+		System.out.println("创建邮件中");
 		message.setFrom(new InternetAddress(from,"飞哪儿航空","utf-8"));
 		message.setRecipient(MimeMessage.RecipientType.TO, new InternetAddress(to, "用户", "utf-8"));
 		message.setSubject("用户验证","utf-8");
-		message.setContent(authno,"utf-8");
+		message.setContent(authno,"text/html;charset=utf-8");
 		message.setSentDate(new Date());
 		message.saveChanges();
 		return message;

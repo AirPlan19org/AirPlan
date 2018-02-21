@@ -24,18 +24,25 @@ public class FormatUtil {
 	public static boolean checkidno(String idno) throws ParseException{
 		System.out.println("正在验证身份证号");
 		//判断长度
-		if(idno.length()!=18)return false;
+		if(idno.length()!=18){
+			System.out.println("长度不合法");
+			return false;
+		}
 		//判断合法行政区
 		String saddcode=idno.substring(0,6);
 		Addr addr=new Addr("123", saddcode);
 		if(!addrlist.contains(addr)){
+			System.out.println("行政区域代码不合法");
 			return false;
 		}
 		//判断数字
 		String str=idno.substring(0,17);
-		if(!isNum(str))return false;
+		if(!isNum(str)){
+			System.out.println("不全为数字");
+			return false;
+		}
 		//判断是否年满18周岁
-		String birthday=idno.substring(6,10);
+		String birthday=idno.substring(6,14);
 		Calendar c=Calendar.getInstance();
 		c.add(Calendar.YEAR, -18);
 		Date date=c.getTime();
@@ -44,7 +51,11 @@ public class FormatUtil {
 		if(birth.getTime()>date.getTime())return false;
 		//判断最末字符
 		String endstr=idno.substring(17);
-		if(!isNum(endstr)||!endstr.equals("x"))return false;
+		System.out.println(endstr);
+		if(!isNum(endstr)&&!endstr.equals("x")){
+			System.out.println("尾数不合法");
+			return false;
+		}
 		return true;
 	}
 	//判断密码是否合法是否合法

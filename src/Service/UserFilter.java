@@ -39,11 +39,13 @@ public class UserFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html;charset=utf-8");
+		String usermail=request.getParameter("usermail");
 		String useridno=request.getParameter("useridno");
 		String userpsw=request.getParameter("userpsw");
 		try {
 			int flag=0;
 			User user=new User();
+			user.setUsermail(usermail);
 			user.setUseridno(useridno);
 			if(UserDao.checkUser(user)!=null){
 				request.setAttribute("exsistuser", "存在该用户");

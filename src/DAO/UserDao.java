@@ -39,11 +39,12 @@ public class UserDao {
 			conn=DBUtil.getConn();
 			String sql = null;
 			if(user.getUserpsw()==null){
-				sql="select * from user where useridno=?;";
+				System.out.println("验证用户是否已经存在");
+				sql="select * from user where useridno=? or usermail=?;";
 				pstm=conn.prepareStatement(sql);
+				pstm.setString(2, user.getUsermail());
 				pstm.setString(1, user.getUseridno());
-			}
-			if(user.getUsermail()!=null){
+			}else if(user.getUsermail()!=null){
 				sql="select * from user where usermail=? and userpsw=?;";
 				pstm=conn.prepareStatement(sql);
 				pstm.setString(1, user.getUsermail());
@@ -56,6 +57,26 @@ public class UserDao {
 			}else{
 				return null;
 				}
+			rs=pstm.executeQuery();
+			if(rs.next()){
+				user= new User(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9));
+				System.out.println(user);
+				return user;
+			}
+		} catch (IOException | SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	public static User getUserByMail(String usermail){
+		Connection conn=null;
+		PreparedStatement pstm=null;
+		ResultSet rs=null;
+		try {
+			conn=DBUtil.getConn();
+			String sql="select * from user where usermail=?;";
+			pstm=conn.prepareStatement(sql);
+			rs=pstm.executeQuery();
 			if(rs.next()){
 				return new User(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9));
 			}
@@ -69,13 +90,12 @@ public class UserDao {
 		PreparedStatement pstm=null;
 		try {
 			conn=DBUtil.getConn();
-			String sql="update user set useraddr=?,userphone=? userbalance=? where useridno=? and userpsw=?;";
+			String sql="update user set useraddr=?,userphone=? userbalance=? where usermail=?;";
 			pstm=conn.prepareStatement(sql);
 			pstm.setString(1, user.getUseraddr());
 			pstm.setString(2, user.getUserphone());
 			pstm.setString(3, user.getUserbalance());
-			pstm.setString(4, user.getUserid());
-			pstm.setString(5, user.getUserpsw());
+			pstm.setString(4, user.getUsermail());
 			pstm.executeUpdate();
 		} catch (IOException | SQLException e) {
 			e.printStackTrace();
@@ -99,7 +119,7 @@ public class UserDao {
 		PreparedStatement pstm=null;
 		try {
 			conn=DBUtil.getConn();
-			String sql="update user set userstatus=? where useridno=?;";
+			String sql="update user set userstatus=? where usermail=?;";
 			pstm=conn.prepareStatement(sql);
 			pstm.setString(1, user.getUserstatus());
 			pstm.setString(2, user.getUseridno());
