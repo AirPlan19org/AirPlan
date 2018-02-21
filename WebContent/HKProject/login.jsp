@@ -103,16 +103,13 @@
 						type="submit">登陆</button>
 				</div>
 		</form>
-		<form action="/AirPlan/HKProject/reg.jsp">
+		<form action="/AirPlan/HKProject/mailAuth.jsp">
 			<div class="col-md-6">
 				<button style="background-color: #EB9316; border: 0;"
-					class="btn btn-lg btn-primary btn-block" type="submit">注册</button>
+					class="btn btn-lg btn-primary btn-block" type="submit">忘记密码</button>
 			</div>
 	</div>
 	</form>
-
-
-
 	</div>
 	<!-- /container -->
 
