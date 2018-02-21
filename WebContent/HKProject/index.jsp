@@ -1,3 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+    	<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 
@@ -58,9 +61,12 @@
 				<li><a href="OrderQuery.html">订单查询</a></li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
-				<li><a href="/HKProject/login.html">登陆</a></li>
+			<%session.setAttribute("usermail", "975365262@qq.com"); %>
+				<li><c:if var="eu" test="${sessionScope.usermail!=null}" scope="session" ><a href="/AirPlan/HKProject/admin.jsp?usermail=${sessionScope.usermail }">用户：${sessionScope.usermail }</a></c:if>
+				<c:if test="not ${eu }" ><a href="/AirPlan/HKProject/reg.jsp">登陆</a></c:if>
+				</li>
 				<li><a href="#">|</a></li>
-				<li><a href="/HKProject/reg.jsp">注册</a></li>
+				<li>${sessionScope.usermail==null? '<a href="/HKProject/reg.jsp">注册</a>':'<a href="/AirPlan/logout.user">退出</a>' }</li>
 			</ul>
 
 		</div>

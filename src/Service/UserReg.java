@@ -18,12 +18,13 @@ public class UserReg extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.setCharacterEncoding("utf-8");
 		resp.setContentType("text/html;charset=utf-8");
-		String to=req.getParameter("usermail");
 		User user=null;
+		String to=null;
 		String uri=req.getRequestURI();
 		String directive=uri.substring(uri.lastIndexOf("/")+1,uri.lastIndexOf("."));
 		switch(directive){
 		case "mailauth":
+			to=req.getParameter("usermail");
 			try {
 				MailUtil.sendMail(to);
 			} catch (MessagingException e) {
@@ -33,6 +34,7 @@ public class UserReg extends HttpServlet {
 			}
 			break;
 		case "active":
+			to=req.getParameter("usermail");
 			String authno=req.getParameter("authno");
 			if(authno!=null&&MailUtil.authMap.containsValue(authno)){
 				MailUtil.authMap.remove(to);
@@ -49,6 +51,11 @@ public class UserReg extends HttpServlet {
 			}
 		case "modify":
 			user=new User();
+			break;
+		case "logout":
+			req.getSession().invalidate();
+			resp.sendRedirect("/AirPlan/HKProject/index.jsp");
+			return;
 		}
 	}
 	@Override
