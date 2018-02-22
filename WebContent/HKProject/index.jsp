@@ -61,9 +61,8 @@
 				<li><a href="OrderQuery.html">订单查询</a></li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
-			<%session.setAttribute("usermail", "975365262@qq.com"); %>
-				<li><c:if var="eu" test="${sessionScope.usermail!=null}" scope="session" ><a href="/AirPlan/HKProject/admin.jsp?usermail=${sessionScope.usermail }">用户：${sessionScope.usermail }</a></c:if>
-				<c:if test="not ${eu }" ><a href="/AirPlan/HKProject/reg.jsp">登陆</a></c:if>
+				<li><c:if var="eu" test="${sessionScope.usermail!=null}" scope="session" ><a href="/AirPlan/HKProject/user.jsp?usermail=${sessionScope.usermail }">用户：${sessionScope.usermail }</a></c:if>
+				<c:if test="${!eu }" ><a href="/AirPlan/HKProject/login.jsp">登陆</a></c:if>
 				</li>
 				<li><a href="#">|</a></li>
 				<li>${sessionScope.usermail==null? '<a href="/HKProject/reg.jsp">注册</a>':'<a href="/AirPlan/logout.user">退出</a>' }</li>

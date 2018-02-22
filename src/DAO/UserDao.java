@@ -107,6 +107,7 @@ public class UserDao {
 		try {
 			conn=DBUtil.getConn();
 			String sql="update user set userpsw=? where usermail=?;";
+			pstm=conn.prepareStatement(sql);
 			pstm.setString(1, user.getUserpsw());
 			pstm.setString(2, user.getUsermail());
 			pstm.executeUpdate();

@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 
 import DAO.UserDao;
 import DoMain.User;
+import Util.FormatUtil;
 import Util.MailUtil;
 
 public class UserReg extends HttpServlet {
@@ -18,31 +19,34 @@ public class UserReg extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.setCharacterEncoding("utf-8");
 		resp.setContentType("text/html;charset=utf-8");
-		User user=null;
-		String to=null;
 		String uri=req.getRequestURI();
 		String directive=uri.substring(uri.lastIndexOf("/")+1,uri.lastIndexOf("."));
+		User user=null;
+		String usermail=null;
+		String userpsw=null;
+		String useridno=null;
 		switch(directive){
 		case "mailauth":
-			to=req.getParameter("usermail");
+			usermail=req.getParameter("usermail");
 			try {
-				MailUtil.sendMail(to);
+				MailUtil.sendMail(usermail);
+				req.setAttribute("usermail", usermail);
 			} catch (MessagingException e) {
 				req.setAttribute("sendmailerror", "邮件发送失败");
-				req.getRequestDispatcher("/HKProject/mailAuth.jsp");
+			}finally{
+				req.getRequestDispatcher("/HKProject/mailAuth.jsp").forward(req, resp);
 				return;
 			}
-			break;
 		case "active":
-			to=req.getParameter("usermail");
+			usermail=req.getParameter("usermail");
 			String authno=req.getParameter("authno");
 			if(authno!=null&&MailUtil.authMap.containsValue(authno)){
-				MailUtil.authMap.remove(to);
+				MailUtil.authMap.remove(usermail);
 				user=new User();
-				user.setUsermail(to);
+				user.setUsermail(usermail);
 				user.setUserstatus("1");
 				UserDao.adminUser(user);
-				resp.sendRedirect("/AirPlan/HKProject/index.html");
+				resp.sendRedirect("/AirPlan/HKProject/index.jsp");
 				return;
 			}else{
 				req.setAttribute("authnoerror", "验证码错误");
@@ -56,10 +60,45 @@ public class UserReg extends HttpServlet {
 			req.getSession().invalidate();
 			resp.sendRedirect("/AirPlan/HKProject/index.jsp");
 			return;
+		case "reget":
+			usermail=req.getParameter("usermail");
+			authno=req.getParameter("authno");
+			if(authno!=null&&MailUtil.authMap.containsValue(authno)){
+				MailUtil.authMap.remove(usermail);
+				req.setAttribute("usermail", usermail);
+				req.getRequestDispatcher("/HKProject/reget.jsp").forward(req, resp);
+				return;
+			}else{
+				req.setAttribute("authnoerror", "验证码错误");
+				req.getRequestDispatcher("/HKProject/mailAuth.jsp").forward(req, resp);
+				return;
+			}
+		case "login":
+			usermail=req.getParameter("usermail");
+			userpsw=req.getParameter("userpsw");
+			user=new User();
+			user.setUsermail(usermail);
+			user.setUserpsw(userpsw);
+			user=UserDao.checkUser(user);
+			if(user!=null){
+				HttpSession ss=req.getSession();
+				ss.setAttribute("usermail", usermail);
+				resp.sendRedirect("/AirPlan/HKProject/index.jsp");
+				return;
+			}else{
+				req.setAttribute("usermail", usermail);
+				req.setAttribute("cannotin", "邮箱或者密码错误");
+				req.getRequestDispatcher("/HKProject/login.jsp").forward(req, resp);
+				return;
+			}
 		}
 	}
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		String uri=req.getRequestURI();
+		String directive=uri.substring(uri.lastIndexOf("/")+1,uri.lastIndexOf("."));
+		switch(directive){
+		case "reg":
 		String username=req.getParameter("username");
 		String useridno=req.getParameter("useridno");
 		String userphone=req.getParameter("userphone");
@@ -79,5 +118,24 @@ public class UserReg extends HttpServlet {
 			req.getRequestDispatcher("/HKProject/mailAuth.jsp");
 		}
 		return;
+		case "reset":
+			req.setCharacterEncoding("utf-8");
+			resp.setContentType("text/html;charset=utf-8");
+			usermail=req.getParameter("usermail");
+			userpsw=req.getParameter("userpsw");
+			if(!FormatUtil.checkpsw(userpsw)){
+				req.setAttribute("errorpsw", "密码格式错误");
+				req.getRequestDispatcher("/HKProject/reget.jsp").forward(req, resp);
+				return;
+			}else{
+				user=new User();
+				user.setUserpsw(userpsw);
+				user.setUsermail(usermail);
+				UserDao.resetUser(user);
+				req.setAttribute("usermail", usermail);
+				req.getRequestDispatcher("/HKProject/login.jsp").forward(req, resp);
+				return;
+			}
+		}
 	}
 }

@@ -73,26 +73,22 @@
 
 	<!-- /container -->
 	<div class="container">
-		<form class="form-signin" action="/AirPlan/active.user" method="get" >
+		<form class="form-signin" action="${sessionScope.usermail==null?'/AirPlan/reget.user':'/AirPlan/active.user' }" method="get" id='form01' >
 			<h2 class="form-signin-heading">邮箱验证</h2>
 			<label for="mail" class="sr-only">mail</label> <input type="tel"
 				id="mail" name='usermail' class="form-control"
-				value="${sessionScope.usermail }" required > <label
+				value="${usermail}" pattern='^(.*@qq.com)$' required > <label
 				for="inputPassword" class="sr-only">Password</label> <input
 				type="password" id="inputPassword" class="form-control"
 				name="authno" placeholder="输入验证码" required>
 			<div class="row">
 				<div class="col-md-6">
-				<input type="hidden" name="usermail" value="${sessionScope.user.usermail }" />
 					<button style="border: 0;" class="btn btn-lg btn-primary btn-block"
-						type="submit">确认</button>
+						type="submit" >确认</button>
 				</div>
-		</form>
-		<form action="mailauth.user" method="get">
-			<div class="col-md-6">
-							<input type="hidden" name="usermail" value="${sessionScope.user.usermail }" />
+				<div class="col-md-6">
 				<button style="background-color: #EB9316; border: 0;"
-					class="btn btn-lg btn-primary btn-block" type="submit">重新获得验证码</button>
+					class="btn btn-lg btn-primary btn-block" type="submit" onclick="javascript:document.getElementById('form01').action='/AirPlan/mailauth.user';document.getElementById('inputPassword').required=false">重新获得验证码</button>
 			</div>
 		</form>
 	</div>
