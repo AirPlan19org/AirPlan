@@ -61,9 +61,9 @@
 				<li><a href="OrderQuery.html">订单查询</a></li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
-				<li><a href="login.html">登陆</a></li>
+				<li><a href="/AirPlan/HKProject/login.jsp">登陆</a></li>
 				<li><a href="#">|</a></li>
-				<li class="active"><a href="sign.html">注册</a></li>
+				<li class="active"><a href="/AirPlan/HKProject/reg.jsp">注册</a></li>
 			</ul>
 
 		</div>

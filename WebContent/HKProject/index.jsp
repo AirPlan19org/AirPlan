@@ -65,7 +65,7 @@
 				<c:if test="${!eu }" ><a href="/AirPlan/HKProject/login.jsp">登陆</a></c:if>
 				</li>
 				<li><a href="#">|</a></li>
-				<li>${sessionScope.usermail==null? '<a href="/HKProject/reg.jsp">注册</a>':'<a href="/AirPlan/logout.user">退出</a>' }</li>
+				<li>${sessionScope.usermail==null? '<a href="/AirPlan/HKProject/reg.jsp">注册</a>':'<a href="/AirPlan/logout.user">退出</a>' }</li>
 			</ul>
 
 		</div>

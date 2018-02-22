@@ -4,9 +4,21 @@
     <welcome-file-list>
     <welcome-file>index.html</welcome-file>
     </welcome-file-list>
+    <error-page>
+    <error-code>404</error-code>
+    <location>/ERROR/error404.html</location>
+    </error-page>
+    <error-page>
+    <error-code>450</error-code>
+    <location>/ERROR/error450.html</location>
+    </error-page>
+    <error-page>
+    <error-code>500</error-code>
+    <location>/ERROR/error500.html</location>
+    </error-page>
  <filter>
  <filter-name>UserFilter</filter-name>
- <filter-class>Service.UserFilter</filter-class>
+ <filter-class>Filter.UserFilter</filter-class>
  </filter>
  <filter-mapping>
  <filter-name>UserFilter</filter-name>
