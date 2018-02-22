@@ -10,6 +10,8 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import DAO.UserDao;
 import DoMain.User;
@@ -37,37 +39,52 @@ public class UserFilter implements Filter {
 	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
 	 */
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-		request.setCharacterEncoding("utf-8");
-		response.setContentType("text/html;charset=utf-8");
-		String usermail=request.getParameter("usermail");
-		String useridno=request.getParameter("useridno");
-		String userpsw=request.getParameter("userpsw");
+		HttpServletRequest req=(HttpServletRequest) request;
+		HttpServletResponse resp=(HttpServletResponse) response;
+		String uri=req.getRequestURI();
+		String directive=uri.substring(uri.lastIndexOf("/")+1,uri.lastIndexOf("."));
+		switch(directive){
+		case "reg":
+		String usermail=req.getParameter("usermail");
+		String useridno=req.getParameter("useridno");
+		String userpsw=req.getParameter("userpsw");
 		try {
 			int flag=0;
 			User user=new User();
 			user.setUsermail(usermail);
 			user.setUseridno(useridno);
 			if(UserDao.checkUser(user)!=null){
-				request.setAttribute("exsistuser", "存在该用户");
-				request.getRequestDispatcher("/HKProject/reg.jsp").forward(request, response);
+				req.setAttribute("exsistuser", "存在该用户");
+				req.getRequestDispatcher("/HKProject/reg.jsp").forward(request, response);
 				return;
 			}
 			if(!FormatUtil.checkidno(useridno)){
 				flag=1;
-				request.setAttribute("idnoerror", "身份证号不合法");
+				req.setAttribute("idnoerror", "身份证号不合法");
 			}
 			if(!FormatUtil.checkpsw(userpsw)){
 				flag=1;
-				request.setAttribute("pswerror", "密码格式不合法");
+				req.setAttribute("pswerror", "密码格式不合法");
 			}
 			if(flag==1){
-				request.getRequestDispatcher("/HKProject/reg.jsp").forward(request, response);
+				req.getRequestDispatcher("/HKProject/reg.jsp").forward(request, response);
 				return;
 			}
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		chain.doFilter(request, response);
+		chain.doFilter(req, resp);
+		return;
+		case "reget":
+			if(req.getAttribute("usermail")==null&&req.getParameter("usermail")==null){
+				resp.sendRedirect("/AirPlan/HKProject/index.jsp");
+				return;
+			}else{
+				chain.doFilter(req, resp);
+				return;
+			}
+		}
+		chain.doFilter(req, resp);
 	}
 
 	/**

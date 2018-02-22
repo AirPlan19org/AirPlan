@@ -50,18 +50,18 @@
 					class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="#">飞哪儿航空官网</a>
+			<a class="navbar-brand" href="/AirPlan/HKProject/index.jsp">飞哪儿航空官网</a>
 		</div>
 		<div id="navbar" class="navbar-collapse collapse">
 			<ul class="nav navbar-nav navbar-left">
-				<li class="active"><a href="index.html">首页<span
+				<li class="active"><a href="/AirPlan/HKProject/index.jsp">首页<span
 						class="sr-only">(current)</span></a></li>
 				<li><a href="reservation.html">预定行程</a></li>
 				<li><a href="#">新闻动态</a></li>
 				<li><a href="OrderQuery.html">订单查询</a></li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
-				<li><c:if var="eu" test="${sessionScope.usermail!=null}" scope="session" ><a href="/AirPlan/HKProject/user.jsp?usermail=${sessionScope.usermail }">用户：${sessionScope.usermail }</a></c:if>
+				<li><c:if var="eu" test="${sessionScope.usermail!=null}" scope="session" ><a href="/AirPlan/HKProject/user.jsp?usermail=${sessionScope.usermail }">用户：${sessionScope.usermail }${sessionScope.userstatus }</a></c:if>
 				<c:if test="${!eu }" ><a href="/AirPlan/HKProject/login.jsp">登陆</a></c:if>
 				</li>
 				<li><a href="#">|</a></li>

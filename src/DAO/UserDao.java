@@ -76,6 +76,7 @@ public class UserDao {
 			conn=DBUtil.getConn();
 			String sql="select * from user where usermail=?;";
 			pstm=conn.prepareStatement(sql);
+			pstm.setString(1, usermail);
 			rs=pstm.executeQuery();
 			if(rs.next()){
 				return new User(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9));
@@ -123,7 +124,7 @@ public class UserDao {
 			String sql="update user set userstatus=? where usermail=?;";
 			pstm=conn.prepareStatement(sql);
 			pstm.setString(1, user.getUserstatus());
-			pstm.setString(2, user.getUseridno());
+			pstm.setString(2, user.getUsermail());
 			pstm.executeUpdate();
 		} catch (IOException | SQLException e) {
 			e.printStackTrace();

@@ -52,20 +52,22 @@
 					class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="#">飞哪儿航空官网</a>
+			<a class="navbar-brand" href="/AirPlan/HKProject/index.jsp">飞哪儿航空官网</a>
 		</div>
 		<div id="navbar" class="navbar-collapse collapse">
 			<ul class="nav navbar-nav navbar-left">
-				<li><a href="index.html">首页<span class="sr-only">(current)</span></a>
-				</li>
+				<li class="active"><a href="/AirPlan/HKProject/index.jsp">首页<span
+						class="sr-only">(current)</span></a></li>
 				<li><a href="reservation.html">预定行程</a></li>
 				<li><a href="#">新闻动态</a></li>
 				<li><a href="OrderQuery.html">订单查询</a></li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
-				<li><a href="/AirPlan/HKProject/login.jsp">登陆</a></li>
+				<li><c:if var="eu" test="${sessionScope.usermail!=null}" scope="session" ><a href="/AirPlan/HKProject/user.jsp?usermail=${sessionScope.usermail }">用户：${sessionScope.usermail }${sessionScope.userstatus }</a></c:if>
+				<c:if test="${!eu }" ><a href="/AirPlan/HKProject/login.jsp">登陆</a></c:if>
+				</li>
 				<li><a href="#">|</a></li>
-				<li class="active"><a href="/AirPlan/HKProject/reg.jsp">注册</a></li>
+				<li>${sessionScope.usermail==null? '<a href="/AirPlan/HKProject/reg.jsp">注册</a>':'<a href="/AirPlan/logout.user">退出</a>' }</li>
 			</ul>
 
 		</div>

@@ -17,8 +17,6 @@ import Util.MailUtil;
 public class UserReg extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		req.setCharacterEncoding("utf-8");
-		resp.setContentType("text/html;charset=utf-8");
 		String uri=req.getRequestURI();
 		String directive=uri.substring(uri.lastIndexOf("/")+1,uri.lastIndexOf("."));
 		User user=null;
@@ -62,6 +60,11 @@ public class UserReg extends HttpServlet {
 			return;
 		case "reget":
 			usermail=req.getParameter("usermail");
+			if(UserDao.getUserByMail(usermail)==null){
+				req.setAttribute("authnoerror", "不存在该用户");
+				req.getRequestDispatcher("/HKProject/mailAuth.jsp").forward(req, resp);
+				return;
+			}
 			authno=req.getParameter("authno");
 			if(authno!=null&&MailUtil.authMap.containsValue(authno)){
 				MailUtil.authMap.remove(usermail);
@@ -107,20 +110,11 @@ public class UserReg extends HttpServlet {
 		String useraddr=req.getParameter("useraddr");
 		User user=new User(null, username, useridno, userphone, useraddr, usermail, userpsw, "0", "0.00");
 		UserDao.addUser(user);
-		HttpSession s=req.getSession();
-		s.setAttribute("usermail", usermail);
-		req.getRequestDispatcher("/HKProject/mailAuth.jsp").forward(req, resp);
-		try {
-			System.out.println(usermail);
-			MailUtil.sendMail(usermail);
-		} catch (MessagingException e) {
-			req.setAttribute("sendmailerror", "邮件发送失败");
-			req.getRequestDispatcher("/HKProject/mailAuth.jsp");
-		}
+		HttpSession ss=req.getSession();
+		ss.setAttribute("usermail", usermail);
+		resp.sendRedirect("/AirPlan/HKProject/index.jsp");
 		return;
 		case "reset":
-			req.setCharacterEncoding("utf-8");
-			resp.setContentType("text/html;charset=utf-8");
 			usermail=req.getParameter("usermail");
 			userpsw=req.getParameter("userpsw");
 			if(!FormatUtil.checkpsw(userpsw)){
