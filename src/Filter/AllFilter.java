@@ -41,6 +41,7 @@ public class AllFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		HttpServletRequest req=(HttpServletRequest) request;
 		HttpServletResponse resp=(HttpServletResponse) response;
+		System.out.println("进入总过滤器");
 		req.setCharacterEncoding("utf-8");
 		resp.setContentType("text/html;charset=utf-8");
 		HttpSession ss=req.getSession();

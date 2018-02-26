@@ -1,10 +1,5 @@
 package Util;
 
-import java.io.IOException;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -81,7 +76,8 @@ public class FormatUtil {
 	}
 	private static boolean isNum(String str){
 		for(char i:str.toCharArray()){
-			if(i<'0'||i>'9')return false;
+			if(i<'0'||i>'9')
+				return false;
 		}
 		return true;
 	}

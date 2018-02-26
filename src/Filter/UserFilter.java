@@ -41,6 +41,7 @@ public class UserFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		HttpServletRequest req=(HttpServletRequest) request;
 		HttpServletResponse resp=(HttpServletResponse) response;
+		System.out.println("进入用户过滤器");
 		String uri=req.getRequestURI();
 		String directive=uri.substring(uri.lastIndexOf("/")+1,uri.lastIndexOf("."));
 		switch(directive){

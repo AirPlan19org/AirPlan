@@ -24,17 +24,25 @@
     <filter-name>UserFilter</filter-name>
     <url-pattern>/reg.user</url-pattern>
   </filter-mapping>
-  <filter>
-  <filter-name>allfilter</filter-name>
-  <filter-class>Filter.AllFilter</filter-class>
-  <init-param>
-  <param-name>acessable</param-name>
-  <param-value></param-value>
-  </init-param>
+    <filter>
+  <filter-name>PlaneFilter</filter-name>
+  <filter-class>Filter.PlaneFilter</filter-class>
   </filter>
   <filter-mapping>
-  <filter-name>allfilter</filter-name>
-  <url-pattern>/*</url-pattern>
+  <filter-name>PlaneFilter</filter-name>
+  <url-pattern>*.plane</url-pattern>
+  </filter-mapping>
+  <filter>
+    <filter-name>allfilter</filter-name>
+    <filter-class>Filter.AllFilter</filter-class>
+    <init-param>
+      <param-name>acessable</param-name>
+      <param-value></param-value>
+    </init-param>
+  </filter>
+  <filter-mapping>
+    <filter-name>allfilter</filter-name>
+    <url-pattern>/*</url-pattern>
   </filter-mapping>
   <servlet>
     <servlet-name>user</servlet-name>
@@ -43,5 +51,13 @@
   <servlet-mapping>
     <servlet-name>user</servlet-name>
     <url-pattern>*.user</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>plane</servlet-name>
+    <servlet-class>Service.PlaneService</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>plane</servlet-name>
+    <url-pattern>*.plane</url-pattern>
   </servlet-mapping>
 </web-app>

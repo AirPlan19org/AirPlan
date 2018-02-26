@@ -11,8 +11,10 @@ import DoMain.Addr;
 import Util.DBUtil;
 
 public class AddrDAO {
+	private static ArrayList<Addr> addrlist=null;
 	public static ArrayList<Addr> getaddrlist(){
-		ArrayList<Addr> addrlist=new ArrayList<Addr>();
+		if(addrlist!=null)return addrlist;
+		addrlist=new ArrayList<Addr>();
 			ResultSet rs = null;
 			Statement stm = null;
 			Connection conn=null;
