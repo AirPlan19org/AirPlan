@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 import DoMain.Flight;
@@ -34,5 +35,22 @@ public class FlightDAO {
 			e.printStackTrace();
 		}
 		return flightlist;
+	}
+	public static Flight getFlightById(String flightId){
+		Connection conn=null;
+		Statement stm=null;
+		ResultSet rs=null;
+		try {
+			conn=DBUtil.getConn();
+			String sql="select * from flight where flightId='"+flightId+"';";
+			stm=conn.createStatement();
+			rs=stm.executeQuery(sql);
+			if(rs.next()){
+				return new Flight(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9), rs.getString(10));
+			}
+		} catch (IOException | SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 }

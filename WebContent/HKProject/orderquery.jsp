@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 
@@ -63,9 +63,13 @@ ${requestScope.notice }
 				<li><a href="/AirPlan/HKProject/orderquery.jsp">订单查询</a></li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
-				<li><c:if var="eu" test="${sessionScope.usermail!=null}" scope="session" ><a href="/AirPlan/HKProject/user.jsp?usermail=${sessionScope.usermail }">用户：${sessionScope.usermail }${sessionScope.userstatus }</a></c:if>
-				<c:if test="${!eu }" ><a href="/AirPlan/HKProject/login.jsp">登陆</a></c:if>
-				</li>
+				<li><c:if var="eu" test="${sessionScope.usermail!=null}"
+						scope="session">
+						<a
+							href="/AirPlan/HKProject/user.jsp?usermail=${sessionScope.usermail }">用户：${sessionScope.usermail }${sessionScope.userstatus }</a>
+					</c:if> <c:if test="${!eu }">
+						<a href="/AirPlan/HKProject/login.jsp">登陆</a>
+					</c:if></li>
 				<li><a href="#">|</a></li>
 				<li>${sessionScope.usermail==null? '<a href="/AirPlan/HKProject/reg.jsp">注册</a>':'<a href="/AirPlan/logout.user">退出</a>' }</li>
 			</ul>
@@ -74,8 +78,73 @@ ${requestScope.notice }
 		<!--/.navbar-collapse -->
 	</div>
 	</nav>
-	<a href="/AirPlan/HKProject/mailAuth.jsp">激活用户</a>
-<h1 style="text-align:center">维护中，该服务暂未开放</h1>
+
+	<div class="container">
+		<div class="row" style="margin-top: 3%; margin-bottom: 2%;">
+			<div class="col-md-5">
+				<select size="1"
+					style="float: left; height: 26px; border-right: none; width: 30%;">
+					<option value="1">订单号</option>
+					<option value="2">票号</option>
+					<option value="3" selected="selected">旅客姓名</option>
+				</select> <input type="text" style="float: left; height: 26px; width: 70%;" " />
+			</div>
+			<div class="col-md-2">
+				<input style="width: 100%;" type="button" id="" value="查询订单" />
+			</div>
+		</div>
+		<hr />
+		<div class="row" style="margin-top: 1%; margin-bottom: 1%;">
+			<div class="col-md-1">
+				<a href="#">全部订单</a>
+			</div>
+			<div class="col-md-1">
+				<a href="#">等待支付</a>
+			</div>
+			<div class="col-md-1">
+				<a href="#">等待出票</a>
+			</div>
+			<div class="col-md-1">
+				<a href="#">出票完成</a>
+			</div>
+			<div class="col-md-1">
+				<a href="#">取消订单</a>
+			</div>
+		</div>
+		<table class="table table-bordered table-hover table-striped">
+			<tr>
+				<th>订单ID</th>
+				<th>航班编号</th>
+				<th>出发城市</th>
+				<th>到达城市</th>
+				<th>舱位ID</th>
+				<th>舱位名称</th>
+				<th>票面价格</th>
+				<th>机场建设费</th>
+				<th>燃油附加税</th>
+				<th>旅客ID</th>
+				<th>支付ID</th>
+				<th>订单状态</th>
+				<th>票号</th>
+			</tr>
+
+			<tr>
+				<td>...</td>
+				<td>...</td>
+				<td>...</td>
+				<td>...</td>
+				<td>...</td>
+				<td>...</td>
+				<td>...</td>
+				<td>...</td>
+				<td>...</td>
+				<td>...</td>
+				<td>...</td>
+				<td>...</td>
+				<td>...</td>
+			</tr>
+		</table>
+	</div>
 	<!--footer -->
 	<div style="background-color: rgb(247, 247, 249);">
 		<hr>
@@ -120,7 +189,6 @@ ${requestScope.notice }
 				</h6>
 				<ul class="list-unstyled">
 					<li><img style="width: 36%;" src="img/815556919.png" /></li>
-
 				</ul>
 			</div>
 		</div>

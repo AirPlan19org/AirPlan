@@ -23,6 +23,7 @@
 	
 }
 </style>
+${requestScope.notice }
 </head>
 
 <body>
@@ -58,7 +59,7 @@
 						class="sr-only">(current)</span></a></li>
 				<li><a href="/AirPlan/HKProject/SearchPlane.jsp">预定行程</a></li>
 				<li><a href="#">新闻动态</a></li>
-				<li><a href="OrderQuery.html">订单查询</a></li>
+				<li><a href="/AirPlan/HKProject/orderquery.jsp">订单查询</a></li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
 				<li><c:if var="eu" test="${sessionScope.usermail!=null}" scope="session" ><a href="/AirPlan/HKProject/user.jsp?usermail=${sessionScope.usermail }">用户：${sessionScope.usermail }${sessionScope.userstatus }</a></c:if>

@@ -10,6 +10,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Servlet Filter implementation class PlaneFilter
@@ -42,7 +43,25 @@ public class PlaneFilter implements Filter {
 		String uri = req.getRequestURI();
 		String directive = uri.substring(uri.lastIndexOf("/") + 1, uri.lastIndexOf("."));
 		switch (directive) {
-		case "search":
+		case "passenger":
+			HttpSession ss=req.getSession();
+			String usermail=(String) ss.getAttribute("usermail");
+			String userstatus=(String) ss.getAttribute("userstatus");
+			if(usermail==null||userstatus==null){
+				req.setAttribute("notice", "<script>alert('请先登录')</script>");
+				req.getRequestDispatcher("/HKProject/login.jsp").forward(req, resp);
+				return;
+			}
+			if(!userstatus.equals("[normal]")){
+				req.setAttribute("notice", "<script>alert('请先激活用户')</script>");
+				req.getRequestDispatcher("/HKProject/user.jsp").forward(req, resp);
+				return;
+			}
+			if(req.getParameter("spaceId")==null){
+				req.setAttribute("notice", "<script>alert('请先预定机票')</script>");
+				req.getRequestDispatcher("/HKProject/SearchPlane.jsp").forward(req, resp);
+				return;
+			}
 		}
 		chain.doFilter(request, response);
 	}

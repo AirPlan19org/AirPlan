@@ -28,6 +28,7 @@
 	
 }
 </style>
+${requestScope.notice }
 </head>
 
 <body>
@@ -63,7 +64,7 @@
 						class="sr-only">(current)</span></a></li>
 				<li><a href="/AirPlan/HKProject/SearchPlane.jsp">预定行程</a></li>
 				<li><a href="#">新闻动态</a></li>
-				<li><a href="OrderQuery.html">订单查询</a></li>
+				<li><a href="/AirPlan/HKProject/orderquery.jsp">订单查询</a></li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
 				<li><c:if var="eu" test="${sessionScope.usermail!=null}" scope="session" ><a href="/AirPlan/HKProject/user.jsp?usermail=${sessionScope.usermail }">用户：${sessionScope.usermail }${sessionScope.userstatus }</a></c:if>
@@ -92,7 +93,7 @@
 						目的地 </span> <span class="col-md-2 col-md-offset-1"> 出发时间 </span> <span
 						class="col-md-2" style="color: #ADADAD;"> 返程时间 </span>
 				</div>
-				<form class="row" action='/AirPlan/HKProject/search.plane' method='get'>
+				<form class="row" action='/AirPlan/HKProject/search.plane' method='post'>
 					<div class="col-md-2">
 						<input type="text" placeholder="出发地" list='fromlist' name='startcity'  value='${requestScope.startcity }'>
 						<%request.setAttribute("citylist", CityDAO.getCityList()); %>
@@ -187,7 +188,7 @@
 						<span class="col-md-1"> 航班编号：${space.flightNum  }</span> <span class="col-md-1">
 							舱位ID：${space.spaceId } </span> <span class="col-md-2"> 舱位名称：${space.spaceName }舱 </span> <span
 							class="col-md-4"> 机场建设费:${space.airportPrice } 燃油附加税:${space.oilPrice } 舱位状态:${space.spaceStatus } </span> <span class="col-md-3">
-							舱位票面价格:${space.spacePrice } </span> <a class="col-md-1" href="passenger.plane?spaceid=${space.spaceId }&flightnum=${space.flightNum }"> 立即预定 </a>
+							舱位票面价格:${space.spacePrice } </span> <a class="col-md-1" href="/AirPlan/HKProject/passenger.plane?spaceId=${space.spaceId }&flightId=<%=flight.getFlightId() %>"> 立即预定 </a>
 					</div>
 				</td>
 			</tr>

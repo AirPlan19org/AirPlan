@@ -11,7 +11,7 @@ import DoMain.City;
 import Util.DBUtil;
 
 public class CityDAO {
-	private static ArrayList<City> citylist=null;
+	public static ArrayList<City> citylist=null;
 	public static ArrayList<City> getCityList(){
 		if(citylist!=null)return citylist;
 		citylist=new ArrayList<City>();
@@ -24,11 +24,21 @@ public class CityDAO {
 			stm=conn.createStatement();
 			rs=stm.executeQuery(sql);
 			while(rs.next()){
-				citylist.add(new City(rs.getInt(1), rs.getString(2), rs.getString(3)));
+				citylist.add(new City(rs.getInt(1),rs.getString(2), rs.getString(3), rs.getString(4)));
 			}
 		} catch (IOException | SQLException e) {
 			e.printStackTrace();
 		}
 		return citylist;
+	}
+	public  static String getCityAirport(String cityname){
+		City c=new City();
+		c.setCityname(cityname);
+		for(City city:citylist){
+			if(city.equals(c)){
+				return city.getAirport();
+			}
+		}
+		return null;
 	}
 }

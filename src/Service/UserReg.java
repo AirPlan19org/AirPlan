@@ -44,6 +44,7 @@ public class UserReg extends HttpServlet {
 				user.setUsermail(usermail);
 				user.setUserstatus("1");
 				UserDao.adminUser(user);
+				req.setAttribute("notice", "<script>alert('用户："+usermail+"已激活')</script>");
 				resp.sendRedirect("/AirPlan/HKProject/index.jsp");
 				return;
 			}else{
@@ -112,7 +113,8 @@ public class UserReg extends HttpServlet {
 		UserDao.addUser(user);
 		HttpSession ss=req.getSession();
 		ss.setAttribute("usermail", usermail);
-		resp.sendRedirect("/AirPlan/HKProject/index.jsp");
+		req.setAttribute("notice", "<script>alert('注册成功')</script>");
+		req.getRequestDispatcher("/HKProject/index.jsp").forward(req, resp);
 		return;
 		case "reset":
 			usermail=req.getParameter("usermail");
@@ -127,6 +129,7 @@ public class UserReg extends HttpServlet {
 				user.setUsermail(usermail);
 				UserDao.resetUser(user);
 				req.setAttribute("usermail", usermail);
+				req.setAttribute("notice", "<script>alert('用户修改成功')</script>");
 				req.getRequestDispatcher("/HKProject/login.jsp").forward(req, resp);
 				return;
 			}
