@@ -1,6 +1,8 @@
 package Filter;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -12,7 +14,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import DAO.OrderDao;
 import DAO.UserDao;
+import DoMain.Order;
 import DoMain.User;
 
 /**
@@ -52,13 +56,27 @@ public class AllFilter implements Filter {
 			if(user.getUserstatus().equals("0")){
 				userstatus="[unActive]";
 			}else if(user.getUserstatus().equals("1")){
-				userstatus="[normal]";
+				userstatus="[Active]";
 			}else if(user.getUserstatus().equals("2")){
-				userstatus="[limit]";
+				userstatus="[Limit]";
 			}else{
-				userstatus="[others]";
+				userstatus="[Others]";
 			}
 			ss.setAttribute("userstatus", userstatus);
+		}
+		String uri = req.getRequestURI();
+		String directive = uri.substring(uri.lastIndexOf("/") + 1, uri.lastIndexOf("."));
+		switch (directive) {
+		case "orderquery":
+			usermail=(String) req.getSession().getAttribute("usermail");
+			if(usermail!=null){
+			
+			User user=UserDao.getUserByMail(usermail);
+			ArrayList<Order> orderlist=OrderDao.getOrderList("3",user.getUseridno(), null);
+			req.setAttribute("orderlist", orderlist);
+			req.getRequestDispatcher("/HKProject/orderquery.jsp").forward(req, resp);
+			return;
+			}
 		}
 		chain.doFilter(req, resp);
 	}

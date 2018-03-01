@@ -60,4 +60,12 @@
     <servlet-name>plane</servlet-name>
     <url-pattern>*.plane</url-pattern>
   </servlet-mapping>
+    <servlet>
+    <servlet-name>order</servlet-name>
+    <servlet-class>Service.OderService</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>order</servlet-name>
+    <url-pattern>*.order</url-pattern>
+  </servlet-mapping>
 </web-app>

@@ -29,6 +29,13 @@ public class UserDao {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
+		}finally{
+			try {
+				if(pstm!=null)pstm.close();
+				if(conn!=null)conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 	public static User checkUser(User user){
@@ -65,6 +72,14 @@ public class UserDao {
 			}
 		} catch (IOException | SQLException e) {
 			e.printStackTrace();
+		}finally{
+			try {
+				if(rs!=null)rs.close();
+				if(pstm!=null)pstm.close();
+				if(conn!=null)conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return null;
 	}
@@ -83,6 +98,14 @@ public class UserDao {
 			}
 		} catch (IOException | SQLException e) {
 			e.printStackTrace();
+		}finally{
+			try {
+				if(rs!=null)rs.close();
+				if(pstm!=null)pstm.close();
+				if(conn!=null)conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return null;
 	}
@@ -100,6 +123,13 @@ public class UserDao {
 			pstm.executeUpdate();
 		} catch (IOException | SQLException e) {
 			e.printStackTrace();
+		}finally{
+			try {
+				if(pstm!=null)pstm.close();
+				if(conn!=null)conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 	public static void resetUser(User user){
@@ -114,6 +144,13 @@ public class UserDao {
 			pstm.executeUpdate();
 		} catch (IOException | SQLException e) {
 			e.printStackTrace();
+		}finally{
+			try {
+				if(pstm!=null)pstm.close();
+				if(conn!=null)conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 	public static void adminUser(User user){
@@ -128,6 +165,13 @@ public class UserDao {
 			pstm.executeUpdate();
 		} catch (IOException | SQLException e) {
 			e.printStackTrace();
+		}finally{
+			try {
+				if(pstm!=null)pstm.close();
+				if(conn!=null)conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 }

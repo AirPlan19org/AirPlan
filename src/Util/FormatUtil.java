@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Random;
 
 import DAO.AddrDAO;
 import DoMain.Addr;
@@ -46,7 +47,6 @@ public class FormatUtil {
 		if(birth.getTime()>date.getTime())return false;
 		//判断最末字符
 		String endstr=idno.substring(17);
-		System.out.println(endstr);
 		if(!isNum(endstr)&&!endstr.equals("x")){
 			System.out.println("尾数不合法");
 			return false;
@@ -81,11 +81,20 @@ public class FormatUtil {
 		}
 		return true;
 	}
-	private static String getNow(){
+	public static String getNow(){
 		String now=null;
 		Date date=new Date();
-		SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd");
+		SimpleDateFormat sdf=null;
+		sdf=new SimpleDateFormat("yyyy-MM-dd");
 		now=sdf.format(date);
 		return now;
+	}
+	public static String getRand(int len){
+		String rand="";
+		Random r=new Random();
+		for(int i=0;i<len;i++){
+			rand=rand+r.nextInt(9);
+		}
+		return rand;
 	}
 }

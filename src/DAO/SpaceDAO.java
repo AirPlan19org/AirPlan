@@ -26,6 +26,14 @@ public class SpaceDAO {
 			}
 		} catch (IOException | SQLException e) {
 			e.printStackTrace();
+		}finally{
+			try {
+				if(rs!=null)rs.close();
+				if(stm!=null)stm.close();
+				if(conn!=null)conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return spacelist;
 	}
@@ -43,6 +51,14 @@ public class SpaceDAO {
 			}
 		} catch (IOException | SQLException e) {
 			e.printStackTrace();
+		}finally{
+			try {
+				if(rs!=null)rs.close();
+				if(stm!=null)stm.close();
+				if(conn!=null)conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return null;
 	}

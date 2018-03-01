@@ -31,8 +31,8 @@ public class AddrDAO {
 			}finally{
 				try {
 					if(rs!=null)rs.close();
-					if(stm!=null)rs.close();
-					if(conn!=null)rs.close();
+					if(stm!=null)stm.close();
+					if(conn!=null)conn.close();
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}

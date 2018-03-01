@@ -33,6 +33,14 @@ public class FlightDAO {
 			if(flag==0)return null;
 		} catch (IOException | SQLException e) {
 			e.printStackTrace();
+		}finally{
+			try {
+				if(rs!=null)rs.close();
+				if(pstm!=null)pstm.close();
+				if(conn!=null)conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return flightlist;
 	}
@@ -50,6 +58,14 @@ public class FlightDAO {
 			}
 		} catch (IOException | SQLException e) {
 			e.printStackTrace();
+		}finally{
+			try {
+				if(rs!=null)rs.close();
+				if(stm!=null)stm.close();
+				if(conn!=null)conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return null;
 	}

@@ -1,3 +1,4 @@
+<%@page import="Util.FormatUtil"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="DoMain.Flight"%>
 <%@page import="DAO.SpaceDAO"%>
@@ -95,20 +96,20 @@ ${requestScope.notice }
 				</div>
 				<form class="row" action='/AirPlan/HKProject/search.plane' method='post'>
 					<div class="col-md-2">
-						<input type="text" placeholder="出发地" list='fromlist' name='startcity'  value='${requestScope.startcity }'>
+						<input type="text" placeholder="出发地" list='fromlist' name='startcity'  value='${requestScope.startcity }' required />
 						<%request.setAttribute("citylist", CityDAO.getCityList()); %>
 						<datalist id='fromlist' ><c:forEach var='city' items='${requestScope.citylist }' >
 						<option value="${city.cityname }">${city.citycode }</option>
 						</c:forEach></datalist>
 					</div>
 					<div class="col-md-2">
-						<input type="text" list='tolist' placeholder="目的地" name='arrivecity'  value='${requestScope.arrivecity }'>
+						<input type="text" list='tolist' placeholder="目的地" name='arrivecity'  value='${requestScope.arrivecity }' required />
 						<datalist id='tolist' ><c:forEach var='city' items='${requestScope.citylist }' >
 						<option value="${city.cityname }">${city.citycode }</option>
 						</c:forEach></datalist>
 					</div>
 					<div class="col-md-2 col-md-offset-1">
-						<input type="date" name='startdate'  value="${requestScope.startdate }">
+						<input type="date" name='startdate'  value="${requestScope.startdate }" min='<%=FormatUtil.getNow()%>' required />
 					</div>
 					<div class="col-md-2">
 						<input style="color: #ADADAD;" type="date" name='returndate' readonly="readonly">

@@ -28,10 +28,19 @@ public class CityDAO {
 			}
 		} catch (IOException | SQLException e) {
 			e.printStackTrace();
+		}finally{
+			try {
+				if(rs!=null)rs.close();
+				if(stm!=null)stm.close();
+				if(conn!=null)conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return citylist;
 	}
 	public  static String getCityAirport(String cityname){
+		if(citylist==null)getCityList();
 		City c=new City();
 		c.setCityname(cityname);
 		for(City city:citylist){

@@ -44,8 +44,8 @@ public class UserReg extends HttpServlet {
 				user.setUsermail(usermail);
 				user.setUserstatus("1");
 				UserDao.adminUser(user);
-				req.setAttribute("notice", "<script>alert('用户："+usermail+"已激活')</script>");
-				resp.sendRedirect("/AirPlan/HKProject/index.jsp");
+				req.setAttribute("notice", "<script>alert('用户："+usermail+"激活成功')</script>");
+				req.getRequestDispatcher("/HKProject/index.jsp").forward(req, resp);
 				return;
 			}else{
 				req.setAttribute("authnoerror", "验证码错误");

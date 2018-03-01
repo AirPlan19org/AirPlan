@@ -80,6 +80,7 @@ ${requestScope.notice }
 	</nav>
 
 	<!-- /container -->
+	<form action="/AirPlan/HKProject/add.order" methode='get'>
 	<div class="container" style="padding-top: 3%; padding-bottom: 3%;">
 		<div class="row">
 			<div class="col-md-7" style="border: 1px solid #CCCCCC;">
@@ -95,7 +96,7 @@ ${requestScope.notice }
 							<div class="col-md-9">
 								<input
 									style="width: 100%; border: none; border-bottom: 1px solid #888888;"
-									type="text" name="username" id=""
+									type="text" 
 									value="${requestScope.username }" />
 							</div>
 						</div>
@@ -137,7 +138,7 @@ ${requestScope.notice }
 							<div class="col-md-6">
 								<input
 									style="width: 100%; border: none; border-bottom: 1px solid #888888;"
-									type="text" name="userphone" id=""
+									type="text" 
 									value="${requestScope.userphone }" />
 							</div>
 						</div>
@@ -175,6 +176,9 @@ ${requestScope.notice }
 		<button style="border: 0; width: 30%; margin: 0 auto;"
 			class="btn btn-lg btn-primary btn-block" type="submit">确认订单</button>
 	</div>
+	<input type='hidden' name='flightId' value='${requestScope.flightId }' />
+	<input type='hidden' name='spaceId' value='${requestScope.spaceId }' />
+	</form>
 	<!-- /container -->
 
 	<!--footer -->

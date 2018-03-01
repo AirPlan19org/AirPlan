@@ -42,6 +42,7 @@ public class PlaneService extends HttpServlet {
 			req.setAttribute("startdate", startdate);
 			req.setAttribute("starttime", starttime);
 			req.setAttribute("arrivetime", arrivetime);
+			req.setAttribute("flightId", flightId);
 			req.setAttribute("flightNum", space.getFlightNum());
 			req.setAttribute("spacename", space.getSpaceName());
 			req.setAttribute("spaceprice", space.getSpacePrice());
@@ -51,6 +52,7 @@ public class PlaneService extends HttpServlet {
 			String arriveport=CityDAO.getCityAirport(flight.getArriveCity());
 			req.setAttribute("startport", startport);
 			req.setAttribute("arriveport", arriveport);
+			req.setAttribute("spaceId", space.getSpaceId());
 			req.getRequestDispatcher("/HKProject/passenger.jsp").forward(req, resp);
 			return;
 		}
