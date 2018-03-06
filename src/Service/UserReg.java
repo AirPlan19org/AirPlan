@@ -32,6 +32,7 @@ public class UserReg extends HttpServlet {
 			} catch (MessagingException e) {
 				req.setAttribute("sendmailerror", "邮件发送失败");
 			}finally{
+				req.setAttribute("autotime", "load()");
 				req.getRequestDispatcher("/HKProject/mailAuth.jsp").forward(req, resp);
 				return;
 			}
@@ -99,6 +100,7 @@ public class UserReg extends HttpServlet {
 	}
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		System.out.println(req.getCharacterEncoding());
 		String uri=req.getRequestURI();
 		String directive=uri.substring(uri.lastIndexOf("/")+1,uri.lastIndexOf("."));
 		switch(directive){

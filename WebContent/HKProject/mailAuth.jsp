@@ -27,7 +27,24 @@
 ${requestScope.notice }
 </head>
 
-<body>
+<body  onload="${requestScope.autotime }" >
+<script>
+function load(){
+    var i=60;
+    var mybutton=document.getElementById("getauthno");
+    setInterval(function(){
+        myDate = new Date();
+        if(i!=0){
+        mybutton.value=i+"秒后刷新";
+        i--;
+        mybutton.disabled=true;
+    }else{
+    	mybutton.disabled=false;
+    	mybutton.value="重新获得验证码";
+    	return;
+    }
+    },1000)}
+</script>
 	<!-- 头部 -->
 	<div class="container">
 		<div class="row">
@@ -91,8 +108,8 @@ ${requestScope.notice }
 						type="submit" >确认</button>
 				</div>
 				<div class="col-md-6">
-				<button style="background-color: #EB9316; border: 0;"
-					class="btn btn-lg btn-primary btn-block" type="submit" onclick="javascript:document.getElementById('form01').action='/AirPlan/mailauth.user';document.getElementById('inputPassword').required=false">重新获得验证码</button>
+				<input style="background-color: #EB9316; border: 0;"
+					id="getauthno" class="btn btn-lg btn-primary btn-block" type="submit" value="获得验证码" onclick="javascript:document.getElementById('form01').action='/AirPlan/mailauth.user';document.getElementById('inputPassword').required=false">
 			</div>
 		</form>
 	</div>

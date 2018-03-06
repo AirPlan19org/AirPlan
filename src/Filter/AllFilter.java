@@ -25,12 +25,12 @@ import DoMain.User;
 @WebFilter("/AllFilter")
 public class AllFilter implements Filter {
 
-    /**
-     * Default constructor. 
-     */
-    public AllFilter() {
-        // TODO Auto-generated constructor stub
-    }
+	/**
+	 * Default constructor.
+	 */
+	public AllFilter() {
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 * @see Filter#destroy()
@@ -42,40 +42,43 @@ public class AllFilter implements Filter {
 	/**
 	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
 	 */
-	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-		HttpServletRequest req=(HttpServletRequest) request;
-		HttpServletResponse resp=(HttpServletResponse) response;
+	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+			throws IOException, ServletException {
+		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html;charset=UTF-8");
+		HttpServletRequest req = (HttpServletRequest) request;
+		HttpServletResponse resp = (HttpServletResponse) response;
 		System.out.println("进入总过滤器");
-		req.setCharacterEncoding("utf-8");
-		resp.setContentType("text/html;charset=utf-8");
-		HttpSession ss=req.getSession();
-		String usermail=(String) ss.getAttribute("usermail");
-		String userstatus=null;
-		if(usermail!=null){
-			User user=UserDao.getUserByMail(usermail);
-			if(user.getUserstatus().equals("0")){
-				userstatus="[unActive]";
-			}else if(user.getUserstatus().equals("1")){
-				userstatus="[Active]";
-			}else if(user.getUserstatus().equals("2")){
-				userstatus="[Limit]";
-			}else{
-				userstatus="[Others]";
+		HttpSession ss = req.getSession();
+		String usermail = (String) ss.getAttribute("usermail");
+		String userstatus = null;
+		if (usermail != null) {
+			User user = UserDao.getUserByMail(usermail);
+			if (user != null) {
+				if (user.getUserstatus().equals("0")) {
+					userstatus = "[unActive]";
+				} else if (user.getUserstatus().equals("1")) {
+					userstatus = "[Active]";
+				} else if (user.getUserstatus().equals("2")) {
+					userstatus = "[Limit]";
+				} else {
+					userstatus = "[Others]";
+				}
+				ss.setAttribute("userstatus", userstatus);
 			}
-			ss.setAttribute("userstatus", userstatus);
 		}
 		String uri = req.getRequestURI();
 		String directive = uri.substring(uri.lastIndexOf("/") + 1, uri.lastIndexOf("."));
 		switch (directive) {
 		case "orderquery":
-			usermail=(String) req.getSession().getAttribute("usermail");
-			if(usermail!=null){
-			
-			User user=UserDao.getUserByMail(usermail);
-			ArrayList<Order> orderlist=OrderDao.getOrderList("3",user.getUseridno(), null);
-			req.setAttribute("orderlist", orderlist);
-			req.getRequestDispatcher("/HKProject/orderquery.jsp").forward(req, resp);
-			return;
+			usermail = (String) req.getSession().getAttribute("usermail");
+			if (usermail != null) {
+
+				User user = UserDao.getUserByMail(usermail);
+				ArrayList<Order> orderlist = OrderDao.getOrderList("3", user.getUseridno(), null);
+				req.setAttribute("orderlist", orderlist);
+				req.getRequestDispatcher("/HKProject/orderquery.jsp").forward(req, resp);
+				return;
 			}
 		}
 		chain.doFilter(req, resp);
