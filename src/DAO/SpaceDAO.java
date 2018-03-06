@@ -18,7 +18,7 @@ public class SpaceDAO {
 		Statement stm=null;
 		try {
 			conn=DBUtil.getConn();
-			String sql="select * from space where flightNum='"+flightNum+"';";
+			String sql="select * from space where flightNum='"+flightNum+"' order by spacePrice;";
 			stm=conn.createStatement();
 			rs=stm.executeQuery(sql);
 			while(rs.next()){

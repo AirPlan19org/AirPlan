@@ -19,11 +19,12 @@ public class FlightDAO {
 		PreparedStatement pstm=null;
 		try {
 			conn=DBUtil.getConn();
-			String sql="select * from flight where startcity=? and arrivecity=? and startdate=?;";
+			String sql="select * from flight where startcity=? and arrivecity=? and startdate>=? and startdate<?;";
 			pstm=conn.prepareStatement(sql);
 			pstm.setString(1, flight.getStartCity());
 			pstm.setString(2, flight.getArriveCity());
 			pstm.setString(3, flight.getStartDate());
+			pstm.setString(4, flight.getStartDate().substring(0, 9)+Integer.valueOf(flight.getStartDate().substring(9))+1);
 			rs=pstm.executeQuery();
 			int flag=0;
 			while(rs.next()){

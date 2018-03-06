@@ -62,10 +62,10 @@ public class FormatUtil {
 		int uptime=0;
 		for(char p:psw.toCharArray()){
 			int flag=0;
-			if(p>'a'&&p<'z'||p=='_'||p>'0'&&p<'9'){
+			if(p>='a'&&p<='z'||p=='_'||p>='0'&&p<='9'){
 				flag=1;
 			}
-			if(p>'A'&&p<'Z'){
+			if(p>='A'&&p<='Z'){
 				flag=1;
 				uptime=1;
 			}

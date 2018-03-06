@@ -1,10 +1,15 @@
 package Util;
 
 import java.io.IOException;
+import java.io.Reader;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Properties;
 import org.apache.commons.dbcp.BasicDataSource;
+import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 public class DBUtil {
 	private static BasicDataSource datasource=null;
@@ -36,5 +41,12 @@ public class DBUtil {
 			getDBSource();
 		}
 		return datasource.getConnection();
+	}
+	public SqlSession getsqlSession() throws IOException{
+		SqlSession sqlSS=null;
+		Reader reader=Resources.getResourceAsReader("config/Configuration.xml");
+		SqlSessionFactory sqlSSF=new SqlSessionFactoryBuilder().build(reader);
+		sqlSS=sqlSSF.openSession();
+		return sqlSS;
 	}
 }

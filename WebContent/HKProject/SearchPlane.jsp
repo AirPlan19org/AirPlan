@@ -157,9 +157,9 @@ ${requestScope.notice }
 				<th>航班状态</th>
 				<th>飞机型号</th>
 				<th>餐食</th>
-				<th>头等舱</th>
-				<th>公务舱</th>
 				<th>经济舱</th>
+				<th>公务舱</th>
+				<th>头等舱</th>
 			</tr>
 	<p style="color:red">${requestScope.noflight }</p>
 	<% int i=0; %>
