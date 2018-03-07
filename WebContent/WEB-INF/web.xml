@@ -24,13 +24,13 @@
     <filter-name>UserFilter</filter-name>
     <url-pattern>/reg.user</url-pattern>
   </filter-mapping>
-    <filter>
-  <filter-name>PlaneFilter</filter-name>
-  <filter-class>Filter.PlaneFilter</filter-class>
+  <filter>
+    <filter-name>PlaneFilter</filter-name>
+    <filter-class>Filter.PlaneFilter</filter-class>
   </filter>
   <filter-mapping>
-  <filter-name>PlaneFilter</filter-name>
-  <url-pattern>*.plane</url-pattern>
+    <filter-name>PlaneFilter</filter-name>
+    <url-pattern>*.plane</url-pattern>
   </filter-mapping>
   <filter>
     <filter-name>allfilter</filter-name>
@@ -43,6 +43,14 @@
   <filter-mapping>
     <filter-name>allfilter</filter-name>
     <url-pattern>/*</url-pattern>
+  </filter-mapping>
+  <filter>
+  <filter-name>orderfilter</filter-name>
+  <filter-class>Filter.OrderFilter</filter-class>
+  </filter>
+  <filter-mapping>
+  <filter-name>orderfilter</filter-name>
+  <url-pattern>*.order</url-pattern>
   </filter-mapping>
   <servlet>
     <servlet-name>user</servlet-name>
@@ -60,7 +68,7 @@
     <servlet-name>plane</servlet-name>
     <url-pattern>*.plane</url-pattern>
   </servlet-mapping>
-    <servlet>
+  <servlet>
     <servlet-name>order</servlet-name>
     <servlet-class>Service.OderService</servlet-class>
   </servlet>

@@ -43,6 +43,10 @@ public class OderService extends HttpServlet {
 			querytype=req.getParameter("querytype");
 			queryinfo=req.getParameter("queryinfo");
 			orderStatus=req.getParameter("orderStatus");
+			if(queryinfo==null||queryinfo.trim().equals("")){
+				req.getRequestDispatcher("/HKProject/orderquery.jsp").forward(req, resp);
+				return;
+			}
 			orderlist=OrderDao.getOrderList(querytype,queryinfo, orderStatus);
 			req.setAttribute("orderStatus",orderStatus);
 			req.setAttribute("querytype", querytype);

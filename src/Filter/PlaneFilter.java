@@ -52,7 +52,7 @@ public class PlaneFilter implements Filter {
 				req.getRequestDispatcher("/HKProject/login.jsp").forward(req, resp);
 				return;
 			}
-			if(!userstatus.equals("[normal]")){
+			if(!userstatus.equals("[Active]")){
 				req.setAttribute("notice", "<script>alert('请先激活用户')</script>");
 				req.getRequestDispatcher("/HKProject/user.jsp").forward(req, resp);
 				return;

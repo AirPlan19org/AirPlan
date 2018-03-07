@@ -91,7 +91,7 @@
 					<option value="1" ${requestScope.querytype=='1' ? 'selected':null }>订单号</option>
 					<option value="2" ${requestScope.querytype=='2' ? 'selected':null }>票号</option>
 					<option value="3" ${requestScope.querytype=='3' ? 'selected':null }>身份证号</option>
-				</select> <input type="text" name='queryinfo' value='${requestScope.queryinfo }' style="float: left; height: 26px; width: 70%;" " />
+				</select> <input type="text" name='queryinfo' value='${requestScope.queryinfo }' required="required" style="float: left; height: 26px; width: 70%;" " />
 			</div>
 			<div class="col-md-2">
 				<input style="width: 100%;" type="submit" id="" value="查询订单" />

@@ -82,6 +82,10 @@ public class AllFilter implements Filter {
 				req.getRequestDispatcher("/HKProject/orderquery.jsp").forward(req, resp);
 				return;
 			}
+			break;
+		case "index":
+			req.getRequestDispatcher("/HKProject/index.jsp").forward(req, resp);
+			return;
 		}
 		chain.doFilter(req, resp);
 	}
