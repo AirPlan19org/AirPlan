@@ -33,9 +33,9 @@ ${requestScope.notice }
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12">
-				<img style="float: left; width: 16%;" src="img/HKlogo.png" /><img
+				<img style="float: left; width: 16%;" src="<%=path %>img/HKlogo.png" /><img
 					style="float: right; padding-right: 1.2%; padding-top: 1%;"
-					src="img/mfyjp.png" />
+					src="<%=path %>img/mfyjp.png" />
 			</div>
 		</div>
 	</div>
@@ -151,7 +151,7 @@ ${requestScope.notice }
 					<strong>关注我们</strong>
 				</h6>
 				<ul class="list-unstyled">
-					<li><img style="width: 36%;" src="img/815556919.png" /></li>
+					<li><img style="width: 36%;" src="<%=path %>img/815556919.png" /></li>
 
 				</ul>
 			</div>
