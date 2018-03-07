@@ -76,6 +76,8 @@ public class AllFilter implements Filter {
 
 				User user = UserDao.getUserByMail(usermail);
 				ArrayList<Order> orderlist = OrderDao.getOrderList("3", user.getUseridno(), null);
+				req.setAttribute("querytype", "3");
+				req.setAttribute("queryinfo", user.getUseridno());
 				req.setAttribute("orderlist", orderlist);
 				req.getRequestDispatcher("/HKProject/orderquery.jsp").forward(req, resp);
 				return;

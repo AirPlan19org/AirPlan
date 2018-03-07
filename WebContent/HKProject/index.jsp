@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     	<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+    	<% String path=request.getContextPath()+"/HKProject/"; %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 
@@ -9,11 +10,11 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 			<title>index</title>
-			<link href="css/jumbotron.css" rel="stylesheet">
-				<link href="css/carousel.css" rel="stylesheet">
-					<link rel="stylesheet" href="libs/bootstrap3/css/bootstrap.min.css">
-						<script src="libs/jquery-3.3.1.min.js"></script>
-						<script src="libs/bootstrap3/js/bootstrap.min.js"></script>
+			<link href="<%=path %>css/jumbotron.css" rel="stylesheet">
+				<link href="<%=path %>css/carousel.css" rel="stylesheet">
+					<link rel="stylesheet" href="<%=path %>libs/bootstrap3/css/bootstrap.min.css">
+						<script src="<%=path %>libs/jquery-3.3.1.min.js"></script>
+						<script src="<%=path %>libs/bootstrap3/js/bootstrap.min.js"></script>
 						<style type="text/css">
 #navtop {
 	width: 60%;
@@ -31,9 +32,9 @@ ${requestScope.notice }
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12">
-				<img style="float: left; width: 16%;" src="img/HKlogo.png" /><img
+				<img style="float: left; width: 16%;" src="<%=path %>img/HKlogo.png" /><img
 					style="float: right; padding-right: 1.2%; padding-top: 1%;"
-					src="img/mfyjp.png" />
+					src="<%=path %>img/mfyjp.png" />
 			</div>
 		</div>
 	</div>
@@ -84,13 +85,13 @@ ${requestScope.notice }
 
 		<div class="carousel-inner">
 			<div class="item active">
-				<img src="img/2212411463.jpg" alt="First slide">
+				<img src="<%=path %>img/2212411463.jpg" alt="First slide">
 			</div>
 			<div class="item">
-				<img src="img/25173657520.jpg" alt="Second slide">
+				<img src="<%=path %>img/25173657520.jpg" alt="Second slide">
 			</div>
 			<div class="item">
-				<img src="img/31162044478.jpg" alt="Third slide">
+				<img src="<%=path %>img/31162044478.jpg" alt="Third slide">
 			</div>
 		</div>
 
@@ -146,7 +147,7 @@ ${requestScope.notice }
 							<strong>关注我们</strong>
 						</h6>
 						<ul class="list-unstyled">
-							<li><img style="width: 36%;" src="img/815556919.png" /></li>
+							<li><img style="width: 36%;" src="<%=path %>img/815556919.png" /></li>
 
 						</ul>
 					</div>

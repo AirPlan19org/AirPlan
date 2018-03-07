@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 	<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+	<% String path=request.getContextPath()+"/HKProject/"; %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 
@@ -9,12 +10,12 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>index</title>
-<link href="css/jumbotron.css" rel="stylesheet">
-<link href="css/carousel.css" rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="css/signin.css" />
-<link rel="stylesheet" href="libs/bootstrap3/css/bootstrap.min.css">
-<script src="libs/jquery-3.3.1.min.js"></script>
-<script src="libs/bootstrap3/js/bootstrap.min.js"></script>
+<link href="<%=path %>css/jumbotron.css" rel="stylesheet">
+<link href="<%=path %>css/carousel.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="<%=path %>css/signin.css" />
+<link rel="stylesheet" href="<%=path %>libs/bootstrap3/css/bootstrap.min.css">
+<script src="<%=path %>libs/jquery-3.3.1.min.js"></script>
+<script src="<%=path %>libs/bootstrap3/js/bootstrap.min.js"></script>
 <style type="text/css">
 #navtop {
 	width: 60%;
