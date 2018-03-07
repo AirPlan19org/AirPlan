@@ -48,7 +48,7 @@ public class AllFilter implements Filter {
 		response.setContentType("text/html;charset=UTF-8");
 		HttpServletRequest req = (HttpServletRequest) request;
 		HttpServletResponse resp = (HttpServletResponse) response;
-		System.out.println("进入总过滤器");
+		System.out.println("ip:"+req.getRemoteAddr()+" port:"+req.getRemotePort()+":进入总过滤器");
 		HttpSession ss = req.getSession();
 		String usermail = (String) ss.getAttribute("usermail");
 		String userstatus = null;
