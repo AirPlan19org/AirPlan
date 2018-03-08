@@ -48,7 +48,11 @@ public class AllFilter implements Filter {
 		response.setContentType("text/html;charset=UTF-8");
 		HttpServletRequest req = (HttpServletRequest) request;
 		HttpServletResponse resp = (HttpServletResponse) response;
-		System.out.println("ip:"+req.getRemoteAddr()+" port:"+req.getRemotePort()+":进入总过滤器");
+		String ip=req.getRemoteAddr();
+		if("192.168.10.85".equals(ip)){
+			ip="杨洋";
+		}
+		System.out.println("ip:"+ip+" port:"+req.getRemotePort()+":进入总过滤器");
 		HttpSession ss = req.getSession();
 		String usermail = (String) ss.getAttribute("usermail");
 		String userstatus = null;
